@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI収入ロードマップ</title>
+<script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#FAF8F5;--surface:#fff;--border:#E8E3D8;
+  --text:#2A2825;--muted:#7A7670;
+  --acc:#C96B3A;--acc2:#E8956A;--acc-l:#F5EDE6;
+  --grn:#5E9B72;--grn-l:#EAF3EE;
+  --blu:#4A7FB5;--blu-l:#EBF2FA;
+  --r:12px;--sh:0 2px 16px rgba(0,0,0,.07);
+}
+body{font-family:'Hiragino Sans','Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+header{background:var(--surface);border-bottom:1px solid var(--border);padding:13px 18px;position:sticky;top:0;z-index:200;box-shadow:var(--sh);}
+.logo{font-size:15px;font-weight:800;color:var(--acc);}
+.logo span{color:var(--muted);font-weight:400;font-size:11px;display:block;margin-top:1px;}
+.snav{background:var(--surface);border-bottom:1px solid var(--border);padding:10px 14px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;position:sticky;top:54px;z-index:100;}
+.snav::-webkit-scrollbar{display:none;}
+.si{display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px 8px;border-radius:8px;cursor:pointer;border:none;background:none;min-width:52px;transition:background .2s;}
+.si:hover,.si.active{background:var(--acc-l);}
+.sd{width:26px;height:26px;border-radius:50%;border:2px solid var(--border);background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--muted);transition:all .3s;}
+.si.active .sd{border-color:var(--acc);background:var(--acc);color:#fff;}
+.si.done .sd{border-color:var(--grn);background:var(--grn);color:#fff;}
+.sl{font-size:10px;color:var(--muted);white-space:nowrap;font-weight:500;}
+.si.active .sl{color:var(--acc);font-weight:700;}
+.si.done .sl{color:var(--grn);}
+.main{max-width:680px;margin:0 auto;padding:22px 15px 100px;}
+.screen{display:none;animation:fi .3s;}
+.screen.active{display:block;}
+@keyframes fi{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:13px;box-shadow:var(--sh);}
+.badge{display:inline-flex;align-items:center;background:var(--acc-l);color:var(--acc);font-size:11px;font-weight:800;padding:3px 11px;border-radius:20px;margin-bottom:13px;letter-spacing:.06em;}
+.ct{font-size:19px;font-weight:800;line-height:1.35;margin-bottom:7px;}
+.cd{font-size:14px;color:var(--muted);line-height:1.75;margin-bottom:20px;}
+.qi{margin-bottom:16px;}
+.ql{display:flex;align-items:center;gap:6px;margin-bottom:4px;}
+.qn{background:var(--acc);color:#fff;border-radius:50%;width:19px;height:19px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0;}
+.qq{font-size:14px;font-weight:700;color:var(--text);line-height:1.4;}
+.qh{font-size:12px;color:var(--muted);margin:3px 0 6px 25px;line-height:1.5;}
+textarea,input[type=text]{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:10px 12px;font-size:14px;font-family:inherit;color:var(--text);background:var(--bg);resize:vertical;transition:border-color .2s;line-height:1.65;}
+textarea:focus,input:focus{outline:none;border-color:var(--acc);background:#fff;}
+textarea{min-height:64px;}
+.pb-wrap{background:var(--border);border-radius:4px;height:5px;margin-bottom:20px;overflow:hidden;}
+.pb{height:100%;background:linear-gradient(90deg,var(--acc),var(--acc2));border-radius:4px;transition:width .4s;}
+.btn{width:100%;border:none;border-radius:9px;padding:14px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;transition:opacity .2s,transform .1s;letter-spacing:.02em;}
+.btn:active{transform:scale(.99);}
+.btn-p{background:var(--acc);color:#fff;}
+.btn-p:hover{opacity:.9;}
+.btn-p:disabled{opacity:.4;cursor:not-allowed;}
+.btn-s{background:var(--surface);color:var(--acc);border:1.5px solid var(--acc);margin-top:10px;}
+.btn-s:hover{background:var(--acc-l);}
+.btn-g{background:var(--grn);color:#fff;}
+.btn-g:hover{opacity:.9;}
+.btn-g:disabled{opacity:.4;cursor:not-allowed;}
+.btn-b{background:var(--blu);color:#fff;margin-top:10px;}
+.btn-b:hover{opacity:.9;}
+.rl{font-size:11px;font-weight:800;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:7px;}
+.rb{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:16px;font-size:14px;line-height:1.85;color:var(--text);white-space:pre-wrap;min-height:70px;}
+.rb.loading{color:var(--muted);display:flex;align-items:center;gap:10px;min-height:56px;}
+.sp{width:17px;height:17px;border:2px solid var(--border);border-top-color:var(--acc);border-radius:50%;animation:spin .8s linear infinite;flex-shrink:0;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.cb{background:none;border:1px solid var(--border);border-radius:6px;padding:5px 13px;font-size:12px;font-family:inherit;color:var(--muted);cursor:pointer;margin-top:7px;transition:all .2s;}
+.cb:hover{border-color:var(--acc);color:var(--acc);}
+hr.dv{border:none;border-top:1px solid var(--border);margin:20px 0;}
+.ib{background:var(--acc-l);border-radius:8px;padding:13px 15px;font-size:13px;color:var(--acc);line-height:1.65;margin-top:12px;}
+.ib strong{font-weight:800;}
+.sb{background:var(--grn-l);border-radius:8px;padding:13px 15px;font-size:13px;color:var(--grn);line-height:1.65;margin-top:12px;}
+.bb{background:var(--blu-l);border-radius:8px;padding:13px 15px;font-size:13px;color:var(--blu);line-height:1.65;margin-top:12px;}
+
+/* チェックボックスグリッド */
+.cat-section{margin-bottom:18px;}
+.cat-title{font-size:13px;font-weight:800;padding:6px 12px;border-radius:6px;margin-bottom:8px;display:inline-block;}
+.cat-health{background:#FEF3E2;color:#B7660A;}
+.cat-love{background:#FDEAEE;color:#B73050;}
+.cat-money{background:#E8F4EA;color:#2E7D40;}
+.check-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+.check-item{display:flex;align-items:flex-start;gap:8px;padding:8px 10px;border:1.5px solid var(--border);border-radius:8px;cursor:pointer;transition:all .2s;font-size:13px;line-height:1.4;}
+.check-item:hover{border-color:var(--acc);background:var(--acc-l);}
+.check-item.checked{border-color:var(--acc);background:var(--acc-l);}
+.check-item input{display:none;}
+.check-icon{width:16px;height:16px;border-radius:4px;border:1.5px solid var(--border);flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all .2s;}
+.check-item.checked .check-icon{background:var(--acc);border-color:var(--acc);color:#fff;}
+.check-sub{font-size:11px;color:var(--muted);margin-top:2px;line-height:1.4;}
+.check-count{font-size:12px;color:var(--muted);margin-bottom:10px;}
+.check-count span{color:var(--acc);font-weight:800;}
+
+/* サービス選択カード */
+.svc-card{border:1.5px solid var(--border);border-radius:10px;padding:16px;margin-bottom:10px;cursor:pointer;transition:all .2s;}
+.svc-card:hover{border-color:var(--acc);background:var(--acc-l);}
+.svc-card.selected{border-color:var(--acc);background:var(--acc-l);}
+.svc-card-title{font-size:15px;font-weight:800;margin-bottom:4px;color:var(--text);}
+.svc-card-desc{font-size:13px;color:var(--muted);line-height:1.5;}
+.svc-card-tag{display:inline-block;font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;margin-bottom:6px;}
+
+/* 優先度ソート */
+.priority-list{list-style:none;}
+.priority-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;margin-bottom:6px;background:var(--surface);cursor:grab;transition:border-color .2s;}
+.priority-item:hover{border-color:var(--acc);}
+.priority-item.selected-p{border-color:var(--grn);background:var(--grn-l);}
+.priority-num{width:22px;height:22px;border-radius:50%;background:var(--acc);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;}
+.priority-item.selected-p .priority-num{background:var(--grn);}
+.priority-text{font-size:13px;font-weight:600;flex:1;}
+.priority-check{font-size:16px;cursor:pointer;flex-shrink:0;}
+
+/* チャット風やり取り */
+.chat-wrap{border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+.chat-msgs{padding:14px;max-height:320px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;background:var(--bg);}
+.msg{max-width:85%;padding:10px 13px;border-radius:10px;font-size:13px;line-height:1.65;}
+.msg-ai{background:var(--surface);border:1px solid var(--border);align-self:flex-start;border-radius:4px 10px 10px 10px;}
+.msg-user{background:var(--acc);color:#fff;align-self:flex-end;border-radius:10px 4px 10px 10px;}
+.chat-input-row{display:flex;gap:8px;padding:10px;border-top:1px solid var(--border);background:var(--surface);}
+.chat-input{flex:1;border:1.5px solid var(--border);border-radius:8px;padding:9px 12px;font-size:13px;font-family:inherit;resize:none;min-height:40px;max-height:100px;}
+.chat-input:focus{outline:none;border-color:var(--acc);}
+.chat-send{background:var(--acc);color:#fff;border:none;border-radius:8px;padding:9px 14px;font-size:13px;font-weight:800;cursor:pointer;flex-shrink:0;}
+.chat-send:hover{opacity:.9;}
+.chat-send:disabled{opacity:.4;cursor:not-allowed;}
+
+/* ルーティン */
+.rc{background:linear-gradient(135deg,var(--acc),var(--acc2));border-radius:var(--r);padding:24px;color:#fff;text-align:center;margin-bottom:13px;}
+.rc h2{font-size:21px;font-weight:800;margin-bottom:7px;}
+.rc p{font-size:14px;opacity:.9;line-height:1.7;}
+.rt{font-size:38px;font-weight:800;margin:14px 0 7px;}
+.rt span{font-size:14px;font-weight:400;opacity:.8;}
+.cl{list-style:none;}
+.cl li{display:flex;align-items:flex-start;gap:9px;padding:10px 0;border-bottom:1px solid var(--border);font-size:14px;line-height:1.5;}
+.cl li:last-child{border-bottom:none;}
+.ci{width:21px;height:21px;border-radius:50%;background:var(--grn-l);color:var(--grn);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;margin-top:1px;}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">AI収入ロードマップ <span>スキルゼロから月10万〜50万を作る</span></div>
+</header>
+
+<div class="snav">
+  <button class="si active" onclick="goTo(0)" id="nav0"><div class="sd">1</div><div class="sl">棚卸し</div></button>
+  <button class="si" onclick="goTo(1)" id="nav1"><div class="sd">2</div><div class="sl">サービス化</div></button>
+  <button class="si" onclick="goTo(2)" id="nav2"><div class="sd">3</div><div class="sl">動画設計</div></button>
+  <button class="si" onclick="goTo(3)" id="nav3"><div class="sd">4</div><div class="sl">集客設定</div></button>
+  <button class="si" onclick="goTo(4)" id="nav4"><div class="sd">5</div><div class="sl">個別相談</div></button>
+  <button class="si" onclick="goTo(5)" id="nav5"><div class="sd">6</div><div class="sl">プロフ設計</div></button>
+  <button class="si" onclick="goTo(6)" id="nav6"><div class="sd">🔁</div><div class="sl">ルーティン</div></button>
+</div>
+
+<div class="main">
+
+<!-- ===== STEP1 棚卸し ===== -->
+<div class="screen active" id="screen-0">
+  <div class="card">
+    <div class="badge">STEP 1 ／ 6</div>
+    <div class="ct">あなたの棚卸しをしよう</div>
+    <div class="cd">「自分には何もない」と思っている人こそ、答えるうちに強みが見えてきます。思ったままに書いてください。</div>
+    <div class="pb-wrap"><div class="pb" id="pb1" style="width:0%"></div></div>
+
+    <div class="qi"><div class="ql"><span class="qn">1</span><span class="qq">これまでやってきた仕事をすべて教えてください</span></div>
+    <div class="qh">アルバイト・パート・派遣・正社員、なんでもOK</div>
+    <textarea id="q1" placeholder="例：飲食店アルバイト3年、営業事務5年…" oninput="upb()"></textarea></div>
+
+    <div class="qi"><div class="ql"><span class="qn">2</span><span class="qq">最も長く続いた仕事は？何年くらいですか？</span></div>
+    <textarea id="q2" placeholder="例：営業事務が7年。得意先の連絡調整や資料まとめが主な仕事でした" oninput="upb()"></textarea></div>
+
+    <div class="qi"><div class="ql"><span class="qn">3</span><span class="qq">主婦・育児期間があれば、その間にやっていたことは？</span></div>
+    <div class="qh">PTA・自治会・ハンドメイド・ブログなど。なければ「なし」でOK</div>
+    <textarea id="q3" placeholder="例：PTA役員を3年、イベント企画と連絡管理を担当" oninput="upb()"></textarea></div>
+
+    <div class="qi"><div class="ql"><span class="qn">4</span><span class="qq">資格・免許はありますか？</span></div>
+    <div class="qh">仕事に直結しないものでもOK（簿記・調理師・英検など）</div>
+    <textarea id="q4" placeholder="例：日商簿記2級、普通自動車免許" oninput="upb()"></textarea></div>
+
+    <div class="qi"><div class="ql"><span class="qn">5</span><span class="qq">パソコン・スマホで人より得意なことは？</span></div>
+    <textarea id="q5" placeholder="例：Canvaでチラシを作れる、インスタのリールを自己流で編集している" oninput="upb()"></textarea></div>
+
+    <div class="qi"><div class="ql"><span class="qn">6</span><span class="qq">「これ、得意だよね」「教えて」と言われることは？</span></div>
+    <textarea id="q6" placeholder="例：料理のアレンジ、片付け・収納、節約術…" oninput="upb()"></textarea></div>
+
+    <div class="qi"><div class="ql"><span class="qn">7</span><span class="qq">家族や友人から相談に乗ることが多いテーマは？</span></div>
+    <textarea id="q7" placeholder="例：夫婦関係の愚痴、職場の人間関係、子育ての悩み" oninput="upb()"></textarea></div>
+
+    <div class="qi"><div class="ql"><span class="qn">8</span><span class="qq">これまでで一番しんどかった経験・悩んだ経験は？</span></div>
+    <textarea id="q8" placeholder="例：離婚、育児と仕事の両立で体を壊した、義実家との関係…" oninput="upb()"></textarea></div>
+
+    <div class="qi"><div class="ql"><span class="qn">9</span><span class="qq">それをどうやって乗り越えましたか？</span></div>
+    <textarea id="q9" placeholder="例：弁護士に相談しながら自分でも情報収集した" oninput="upb()"></textarea></div>
+
+    <div class="qi"><div class="ql"><span class="qn">10</span><span class="qq">その経験から「同じ悩みの人に伝えたい」ことは？</span></div>
+    <textarea id="q10" placeholder="例：弁護士選びのポイント、調停の準備の仕方" oninput="upb()"></textarea></div>
+
+    <div class="qi"><div class="ql"><span class="qn">11</span><span class="qq">お金を払ってでも続けていること・学んでいることは？</span></div>
+    <textarea id="q11" placeholder="例：ヨガ教室に3年、料理教室、英会話" oninput="upb()"></textarea></div>
+
+    <div class="qi"><div class="ql"><span class="qn">12</span><span class="qq">時間を忘れて没頭できることは？</span></div>
+    <textarea id="q12" placeholder="例：読書（ビジネス書）、料理の研究、SNSで情報収集" oninput="upb()"></textarea></div>
+
+    <div class="qi"><div class="ql"><span class="qn">13</span><span class="qq">「話すとラクになる」と言われたことは？どんな場面で人の役に立てていますか？</span></div>
+    <textarea id="q13" placeholder="例：話を聞くのが得意でよく「すっきりした」と言われる" oninput="upb()"></textarea></div>
+
+    <div class="qi"><div class="ql"><span class="qn">14</span><span class="qq">どんな働き方・収入の作り方がしたいですか？</span></div>
+    <div class="qh">在宅・副業・独立など正直な気持ちを書いてください</div>
+    <textarea id="q14" placeholder="例：在宅で月5万から始めたい、将来は自分のサービスを持ちたい" oninput="upb()"></textarea></div>
+
+    <div class="qi"><div class="ql"><span class="qn">15</span><span class="qq">「私ってこういう人間だな」と思うことを自由に書いてください</span></div>
+    <textarea id="q15" placeholder="例：心配性で準備に時間をかける、一度やると決めたら最後まで続けられる" oninput="upb()"></textarea></div>
+
+    <hr class="dv">
+    <button class="btn btn-p" id="btn1" onclick="s1()">🔍 AIがあなたの強みを分析する</button>
+    <div id="r1" style="display:none;margin-top:18px;">
+      <div class="rl">あなたの強み診断</div>
+      <div class="rb" id="o1"></div>
+      <button class="cb" onclick="cp('o1')">📋 コピー</button>
+      <button class="btn btn-p" style="margin-top:14px;" onclick="goTo(1)">STEP 2 サービス化へ進む →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== STEP2 サービス化 ===== -->
+<div class="screen" id="screen-1">
+  <div class="card">
+    <div class="badge">STEP 2 ／ 6</div>
+    <div class="ct">あなたのサービスを作ろう</div>
+    <div class="cd">関心のある分野を最大3つ選んでください。あなたの強みと掛け合わせてサービス案を提案します。</div>
+
+    <!-- カテゴリ選択 -->
+    <div class="check-count">選択中：<span id="check-cnt">0</span> ／ 3</div>
+
+    <div class="cat-section">
+      <div class="cat-title cat-health">🌿 健康・美容</div>
+      <div class="check-grid">
+        <div class="check-item" onclick="toggleCheck(this,'体型・ダイエット')">
+          <div class="check-icon"></div>
+          <div><div>体型・ダイエット</div><div class="check-sub">産後太り・リバウンド</div></div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this,'腸活・デトックス')">
+          <div class="check-icon"></div>
+          <div><div>腸活・デトックス</div><div class="check-sub">便秘・肌荒れ・だるさ</div></div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this,'更年期・ホルモン')">
+          <div class="check-icon"></div>
+          <div><div>更年期・ホルモン</div><div class="check-sub">不調・イライラ・不眠</div></div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this,'メンタル・自己肯定感')">
+          <div class="check-icon"></div>
+          <div><div>メンタル・自己肯定感</div><div class="check-sub">自分を責める・自信がない</div></div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this,'慢性的な不調')">
+          <div class="check-icon"></div>
+          <div><div>慢性的な不調</div><div class="check-sub">冷え・むくみ・慢性疲労</div></div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this,'食事・栄養')">
+          <div class="check-icon"></div>
+          <div><div>食事・栄養</div><div class="check-sub">何を食べたらいいかわからない</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cat-section">
+      <div class="cat-title cat-love">💗 恋愛・人間関係</div>
+      <div class="check-grid">
+        <div class="check-item" onclick="toggleCheck(this,'夫婦関係修復')">
+          <div class="check-icon"></div>
+          <div><div>夫婦関係修復</div><div class="check-sub">会話がない・すれ違い</div></div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this,'離婚・別れ')">
+          <div class="check-icon"></div>
+          <div><div>離婚・別れ</div><div class="check-sub">養育費・財産分与・調停</div></div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this,'婚活・出会い')">
+          <div class="check-icon"></div>
+          <div><div>婚活・出会い</div><div class="check-sub">マッチングアプリ・自分の魅力</div></div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this,'夫婦コミュニケーション')">
+          <div class="check-icon"></div>
+          <div><div>夫婦コミュニケーション</div><div class="check-sub">本音が言えない・喧嘩</div></div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this,'職場の人間関係')">
+          <div class="check-icon"></div>
+          <div><div>職場の人間関係</div><div class="check-sub">上司・同僚・パワハラ</div></div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this,'自己価値・関係のクセ')">
+          <div class="check-icon"></div>
+          <div><div>自己価値・関係のクセ</div><div class="check-sub">同じパターンを繰り返す</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cat-section">
+      <div class="cat-title cat-money">💰 お金・キャリア</div>
+      <div class="check-grid">
+        <div class="check-item" onclick="toggleCheck(this,'副業・在宅収入')">
+          <div class="check-icon"></div>
+          <div><div>副業・在宅収入</div><div class="check-sub">スキルゼロから在宅で稼ぐ</div></div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this,'老後・将来不安')">
+          <div class="check-icon"></div>
+          <div><div>老後・将来不安</div><div class="check-sub">年金不安・資産形成</div></div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this,'起業・独立')">
+          <div class="check-icon"></div>
+          <div><div>起業・独立</div><div class="check-sub">商品作り・集客方法</div></div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this,'家計管理')">
+          <div class="check-icon"></div>
+          <div><div>家計管理</div><div class="check-sub">支出見直し・貯金できない</div></div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this,'スキルアップ・学び直し')">
+          <div class="check-icon"></div>
+          <div><div>スキルアップ・学び直し</div><div class="check-sub">AI不安・キャリアチェンジ</div></div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this,'主婦の自己実現')">
+          <div class="check-icon"></div>
+          <div><div>主婦の自己実現</div><div class="check-sub">ママ・妻以外の自分を持ちたい</div></div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="dv">
+    <button class="btn btn-p" id="btn2a" onclick="s2a()">💡 サービス案を提案してもらう</button>
+
+    <!-- サービス選択 -->
+    <div id="r2a" style="display:none;margin-top:20px;">
+      <div class="rl">サービス提案（1つ選んでください）</div>
+      <div id="svc-cards"></div>
+      <div id="r2b" style="display:none;margin-top:20px;">
+        <hr class="dv">
+        <div class="rl">サービス内容の設計（AIと対話して確定する）</div>
+        <div class="ib" style="margin-bottom:12px;"><strong>📋 固定フレーム</strong>：3ヶ月継続サポート ／ LINEで相談無制限 ／ Zoomサポート月2回<br>↑この枠組みの中で、あなたのサービスに合わせた内容をAIが提案します。</div>
+        <div class="chat-wrap">
+          <div class="chat-msgs" id="chat2-msgs"></div>
+          <div class="chat-input-row">
+            <textarea class="chat-input" id="chat2-input" placeholder="修正・追加したいことを入力してください…" rows="2"></textarea>
+            <button class="chat-send" id="chat2-send" onclick="chat2Send()">送信</button>
+          </div>
+        </div>
+        <button class="btn btn-g" style="margin-top:12px;" onclick="confirmService()">✅ このサービスで確定する</button>
+        <div id="r2-confirmed" style="display:none;margin-top:12px;">
+          <div class="sb">✅ サービスが確定しました！STEP3に進みましょう。</div>
+          <button class="btn btn-p" style="margin-top:12px;" onclick="goTo(2)">STEP 3 動画設計へ進む →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== STEP3 動画設計 ===== -->
+<div class="screen" id="screen-2">
+  <div class="card">
+    <div class="badge">STEP 3 ／ 6</div>
+    <div class="ct">集客動画を設計しよう</div>
+    <div class="cd">45分の集客動画の台本とスライドを自動生成します。「視聴者に感じてほしいポイント」は5つ提案されるので、優先度の高い順に並べてください。</div>
+
+    <div class="rl">確定サービス（引き継ぎ済み）</div>
+    <div class="rb" id="c2" style="font-size:13px;max-height:100px;overflow-y:auto;color:var(--muted);margin-bottom:18px;">STEP2を先に完了してください</div>
+
+    <button class="btn btn-p" id="btn3a" onclick="s3a()">📋 視聴者に感じてほしいポイントを5つ提案してもらう</button>
+
+    <div id="r3a" style="display:none;margin-top:18px;">
+      <div class="rl">優先度の高い順に並べ替えてください（クリックで選択・解除）</div>
+      <div class="qh" style="margin:0 0 10px;">上から順に「最も大切なポイント」になるように並べてください</div>
+      <ul class="priority-list" id="priority-list"></ul>
+      <div class="ib" style="margin-top:10px;"><strong>💡 並べ方：</strong>チェックマーク（✓）をクリックすると選択／解除できます。上から選んだ順番が優先度になります。</div>
+      <button class="btn btn-p" style="margin-top:14px;" id="btn3b" onclick="s3b()">🎬 台本＋スライド構成を生成する</button>
+    </div>
+
+    <div id="r3b" style="display:none;margin-top:18px;">
+      <div class="rl">動画台本＋スライド構成</div>
+      <div class="rb" id="o3b"></div>
+      <button class="cb" onclick="cp('o3b')">📋 コピー</button>
+      <button class="btn btn-g" id="btn3p" onclick="dlPptx()" style="display:none;margin-top:10px;">📥 PowerPointをダウンロード</button>
+      <button class="btn btn-p" style="margin-top:10px;" onclick="goTo(3)">STEP 4 集客設定へ進む →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== STEP4 集客設定 ===== -->
+<div class="screen" id="screen-3">
+  <div class="card">
+    <div class="badge">STEP 4 ／ 6</div>
+    <div class="ct">集客の仕組みを選んで設定しよう</div>
+    <div class="cd">動画視聴者をLINEに誘導して自動案内する仕組みを作ります。まず無料のLINE公式アカウントから始めましょう。</div>
+    <div class="ib"><strong>💡 選び方のポイント</strong><br>まずLINE公式アカウント（無料）で始めて、月5〜10万円が安定したらUTAGEに移行して完全自動化しましょう。</div>
+    <hr class="dv">
+    <div class="rl">設定手順マニュアル（外部リンク）</div>
+    <a class="svc-card" href="#" onclick="alert('LINE設定マニュアルのURLをここに設定してください');return false;" style="display:block;text-decoration:none;">
+      <div class="svc-card-title">📱 LINE公式アカウント設定マニュアル</div>
+      <div class="svc-card-desc">無料でできるステップ配信の設定手順</div>
+    </a>
+    <a class="svc-card" href="#" onclick="alert('UTAGEマニュアルのURLをここに設定してください');return false;" style="display:block;text-decoration:none;">
+      <div class="svc-card-title">⚙️ UTAGE設定マニュアル</div>
+      <div class="svc-card-desc">LINE連携・完全自動化の手順（収益が出てから）</div>
+    </a>
+    <hr class="dv">
+    <button class="btn btn-p" onclick="goTo(4)">STEP 5 個別相談設計へ進む →</button>
+  </div>
+</div>
+
+<!-- ===== STEP5 個別相談 ===== -->
+<div class="screen" id="screen-4">
+  <div class="card">
+    <div class="badge">STEP 5 ／ 6</div>
+    <div class="ct">個別相談からクロージングまでの型を作ろう</div>
+    <div class="cd">Zoom60分の無料個別相談を設計します。「相談を受ける→理解してもらう→申し込みにつなげる」までのシナリオを自動生成します。</div>
+    <div class="rl">確定サービス（引き継ぎ済み）</div>
+    <div class="rb" id="c4" style="font-size:13px;max-height:100px;overflow-y:auto;color:var(--muted);margin-bottom:18px;">STEP2を先に完了してください</div>
+    <button class="btn btn-p" id="btn5" onclick="s5()">📋 個別相談シナリオを生成する（Zoom60分）</button>
+    <div id="r5" style="display:none;margin-top:18px;">
+      <div class="rl">個別相談シナリオ（クロージングまで）</div>
+      <div class="rb" id="o5"></div>
+      <button class="cb" onclick="cp('o5')">📋 コピー</button>
+      <button class="btn btn-p" style="margin-top:14px;" onclick="goTo(5)">STEP 6 プロフィール設計へ進む →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== STEP6 プロフィール＆投稿 ===== -->
+<div class="screen" id="screen-5">
+  <div class="card">
+    <div class="badge">STEP 6 ／ 6</div>
+    <div class="ct">Threadsプロフィールを設計しよう</div>
+    <div class="cd">サービスと強みをもとにプロフィールのたたき台を提案します。AIと対話して完成させてください。</div>
+    <div class="rl">確定サービス（引き継ぎ済み）</div>
+    <div class="rb" id="c5" style="font-size:13px;max-height:100px;overflow-y:auto;color:var(--muted);margin-bottom:18px;">STEP2を先に完了してください</div>
+    <button class="btn btn-p" id="btn6a" onclick="s6a()">✨ プロフィールのたたき台を作る</button>
+    <div id="r6a" style="display:none;margin-top:18px;">
+      <div class="rl">プロフィール設計（AIと対話して完成させる）</div>
+      <div class="chat-wrap">
+        <div class="chat-msgs" id="chat6-msgs"></div>
+        <div class="chat-input-row">
+          <textarea class="chat-input" id="chat6-input" placeholder="修正・変えたい表現・追加したいことを入力…" rows="2"></textarea>
+          <button class="chat-send" id="chat6-send" onclick="chat6Send()">送信</button>
+        </div>
+      </div>
+      <button class="btn btn-g" style="margin-top:12px;" onclick="confirmProfile()">✅ このプロフィールで確定する</button>
+      <div id="r6-confirmed" style="display:none;margin-top:12px;">
+        <div class="sb">✅ プロフィールが確定しました！次は投稿作成です。</div>
+        <button class="btn btn-p" style="margin-top:12px;" onclick="showPostSection()">今日の投稿を作りに行く →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 投稿作成（プロフ確定後に表示） -->
+  <div class="card" id="post-section" style="display:none;">
+    <div class="badge" style="background:var(--grn-l);color:var(--grn);">毎日ここに来る</div>
+    <div class="ct">今日のThreads投稿を作ろう</div>
+    <div class="cd">毎朝ここに来て「作る」を押すだけ。3本の投稿がすぐ出てきます。</div>
+    <div class="qi"><div class="ql"><span class="qn">+</span><span class="qq">今日の投稿テーマ（任意）</span></div>
+    <div class="qh">空白でもOK。毎日変えなくて大丈夫です</div>
+    <textarea id="pt" placeholder="（任意）例：月曜の朝向け、最近問い合わせが増えてきた" style="min-height:52px;"></textarea></div>
+    <button class="btn btn-p" id="btn6b" onclick="s6b()">✍️ 今日の投稿を3本作る</button>
+    <div id="r6b" style="display:none;margin-top:18px;">
+      <div class="rl">今日の投稿（3本）</div>
+      <div class="rb" id="o6b"></div>
+      <button class="cb" onclick="cp('o6b')">📋 コピー</button>
+      <div class="ib" style="margin-top:12px;"><strong>📅 予約投稿のやり方</strong><br>Meta Business Suiteを開いて「投稿を作成」→「スケジュール」で朝7〜9時に予約。これで1日5分の作業完成です。</div>
+      <button class="btn btn-s" onclick="s6b()">🔄 別パターンを作り直す</button>
+      <button class="btn btn-p" style="margin-top:10px;" onclick="goTo(6)">ルーティンを確認する →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ルーティン ===== -->
+<div class="screen" id="screen-6">
+  <div class="rc">
+    <h2>🎉 仕組みが完成しました！</h2>
+    <p>あとはこれだけを毎日続けるだけです</p>
+    <div class="rt">5<span>分／日</span></div>
+    <p>朝、ここに来て投稿を作って予約するだけ</p>
+  </div>
+
+  <div class="card">
+    <div class="ct">毎朝のルーティン</div>
+    <ul class="cl">
+      <li><span class="ci">①</span><span>STEP6「投稿作成」を開く</span></li>
+      <li><span class="ci">②</span><span>「今日の投稿を3本作る」を押す</span></li>
+      <li><span class="ci">③</span><span>Meta Business Suiteに貼り付けて朝7〜9時に予約</span></li>
+      <li><span class="ci">④</span><span>完了！あとは自動で投稿される</span></li>
+    </ul>
+    <button class="btn btn-p" style="margin-top:18px;" onclick="goTo(5);showPostSection()">🔁 今日の投稿を作りに行く</button>
+  </div>
+
+  <div class="card">
+    <div class="badge" style="background:var(--blu-l);color:var(--blu);">慣れてきたら</div>
+    <div class="ct">ターゲットへの返信投稿を作る</div>
+    <div class="cd">フォロワーが増えてきたら、ターゲット層の投稿に反応する「共感返信投稿」でさらに関係を深めましょう。</div>
+    <div class="qi"><div class="ql"><span class="qn">→</span><span class="qq">気になるターゲットの投稿を貼り付けてください</span></div>
+    <div class="qh">「この人うちのターゲットだな」と思う投稿をそのままコピペ</div>
+    <textarea id="target-post" placeholder="例：「また夫と喧嘩してしまった…。何度話しても変わらないし、もう疲れた。離婚も頭をよぎるけど子どものことを考えると踏み出せない」" style="min-height:80px;"></textarea></div>
+    <button class="btn btn-b" id="btn-reply" onclick="sReply()">💬 この投稿への返信投稿を作る</button>
+    <div id="r-reply" style="display:none;margin-top:18px;">
+      <div class="rl">返信投稿（Threadsに投稿する）</div>
+      <div class="rb" id="o-reply"></div>
+      <button class="cb" onclick="cp('o-reply')">📋 コピー</button>
+      <div class="bb" style="margin-top:10px;"><strong>💡 使い方のポイント</strong><br>そのまま返信するのではなく、「参考にして自分の言葉で少し変える」のが自然に見えるコツです。</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ct">仕組みの全体像</div>
+    <ul class="cl">
+      <li><span class="ci">1</span><span><strong>Threads</strong>で毎日発信 → フォロワーが増える</span></li>
+      <li><span class="ci">2</span><span><strong>無料動画</strong>をプロフに固定 → 興味を持った人が視聴</span></li>
+      <li><span class="ci">3</span><span><strong>LINE登録</strong>でステップ配信 → 信頼関係を構築</span></li>
+      <li><span class="ci">4</span><span><strong>無料個別相談（Zoom60分）</strong>でニーズ確認 → サービスを提案</span></li>
+      <li><span class="ci">5</span><span><strong>3ヶ月継続サポート</strong>で申し込み → 収益化</span></li>
+    </ul>
+    <div class="sb"><strong>💚 目安：</strong>3ヶ月でフォロワー500人→無料相談月3〜5件→成約1〜2件で月3万〜10万円のスタートが見えてきます。</div>
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<script>
+// ===== 状態管理 =====
+let ST={str:'',selectedDesires:[],svcList:[],selectedSvc:'',svcDetail:'',priorities:[],scriptText:'',slides:[],profile:''};
+let done=new Set();
+let chat2History=[];
+let chat6History=[];
+
+// ===== 進捗バー =====
+function upb(){
+  const ids=['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10','q11','q12','q13','q14','q15'];
+  const n=ids.filter(id=>document.getElementById(id).value.trim().length>2).length;
+  document.getElementById('pb1').style.width=Math.round(n/ids.length*100)+'%';
+}
+
+// ===== 画面切替 =====
+function goTo(i){
+  document.querySelectorAll('.screen').forEach((s,j)=>s.classList.toggle('active',j===i));
+  document.querySelectorAll('.si').forEach((n,j)=>{
+    n.classList.remove('active','done');
+    if(done.has(j)&&j!==i)n.classList.add('done');
+    if(j===i)n.classList.add('active');
+  });
+  if(i===2)document.getElementById('c2').textContent=ST.svcDetail||ST.selectedSvc||'STEP2を先に完了してください';
+  if(i===4)document.getElementById('c4').textContent=ST.svcDetail||ST.selectedSvc||'STEP2を先に完了してください';
+  if(i===5)document.getElementById('c5').textContent=ST.svcDetail||ST.selectedSvc||'STEP2を先に完了してください';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function showPostSection(){
+  document.getElementById('post-section').style.display='block';
+  document.getElementById('post-section').scrollIntoView({behavior:'smooth'});
+}
+
+// ===== チェックボックス =====
+function toggleCheck(el,label){
+  const isChecked=el.classList.contains('checked');
+  const cnt=document.querySelectorAll('.check-item.checked').length;
+  if(!isChecked&&cnt>=3){alert('最大3つまで選択できます。');return;}
+  el.classList.toggle('checked');
+  const icon=el.querySelector('.check-icon');
+  if(el.classList.contains('checked')){
+    icon.textContent='✓';
+    ST.selectedDesires=[...document.querySelectorAll('.check-item.checked')].map(e=>e.querySelector('div>div:first-child').textContent.trim());
+  }else{
+    icon.textContent='';
+    ST.selectedDesires=[...document.querySelectorAll('.check-item.checked')].map(e=>e.querySelector('div>div:first-child').textContent.trim());
+  }
+  document.getElementById('check-cnt').textContent=ST.selectedDesires.length;
+}
+
+// ===== Claude API =====
+async function ai(sys,usr,el,stream=false){
+  if(el){el.className='rb loading';el.innerHTML='<div class="sp"></div>AIが生成中です…少々お待ちください';}
+  try{
+    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,system:sys,messages:[{role:'user',content:usr}]})});
+    const d=await r.json();
+    const t=d.content?.find(c=>c.type==='text')?.text||'（出力がありませんでした）';
+    if(el){el.className='rb';el.textContent=t;}
+    return t;
+  }catch(e){if(el){el.className='rb';el.textContent='エラーが発生しました。もう一度お試しください。';}return '';}
+}
+
+async function aiChat(sys,history,el){
+  const msgs=el.id?document.getElementById(el.id.replace('input','msgs')):null;
+  const bubble=document.createElement('div');
+  bubble.className='msg msg-ai';bubble.textContent='…';
+  if(msgs){msgs.appendChild(bubble);msgs.scrollTop=msgs.scrollHeight;}
+  try{
+    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,system:sys,messages:history})});
+    const d=await r.json();
+    const t=d.content?.find(c=>c.type==='text')?.text||'（出力がありませんでした）';
+    bubble.textContent=t;
+    if(msgs)msgs.scrollTop=msgs.scrollHeight;
+    return t;
+  }catch(e){bubble.textContent='エラーが発生しました。もう一度お試しください。';return '';}
+}
+
+function addMsg(msgsId,text,role){
+  const msgs=document.getElementById(msgsId);
+  const b=document.createElement('div');
+  b.className='msg '+(role==='user'?'msg-user':'msg-ai');
+  b.textContent=text;msgs.appendChild(b);msgs.scrollTop=msgs.scrollHeight;
+}
+
+// ===== STEP1 =====
+async function s1(){
+  const qs={};for(let i=1;i<=15;i++)qs[i]=document.getElementById('q'+i).value.trim();
+  if(Object.values(qs).filter(v=>v.length>2).length<5){alert('5問以上答えてから分析してください。');return;}
+  document.getElementById('btn1').disabled=true;
+  const sys=`あなたはビジネスコーチです。Q&A回答から強みを言語化してください。
+【ルール】800〜1200文字。「あなたは…」と直接語りかける。
+①核心的な強み2〜3個 ②自然にできていること ③乗り越えた経験から生まれた強み ④貢献できる人のタイプ の4項目を含める。占い・スピリチュアル要素は一切入れない。事実のみ。`;
+  const usr=Object.entries(qs).map(([k,v])=>`Q${k}：${v||'（未回答）'}`).join('\n');
+  document.getElementById('r1').style.display='block';
+  ST.str=await ai(sys,usr,document.getElementById('o1'));
+  document.getElementById('btn1').disabled=false;done.add(0);
+}
+
+// ===== STEP2a サービス案提案 =====
+async function s2a(){
+  if(!ST.str){alert('先にSTEP1を完了してください。');return;}
+  if(ST.selectedDesires.length===0){alert('少なくとも1つ選んでください。');return;}
+  document.getElementById('btn2a').disabled=true;
+  const sys=`あなたはビジネスコーチです。以下の強みと選択された欲求カテゴリを組み合わせてサービス案を3〜4個提案してください。
+
+【重要：出力形式】各案を以下のJSON形式で出力してください（前後の説明文は不要）：
+[
+  {"title":"サービス名","tag":"カテゴリ","target":"ターゲット（1行）","summary":"サービス概要（2〜3行）","why":"この人に向いている理由（1〜2行）"},
+  ...
+]
+
+【条件】月10万〜50万円を目指せるスケール感。3ヶ月継続サポート形式（LINE無制限＋Zoom月2回）を前提に。`;
+  const usr=`【強み】\n${ST.str}\n\n【選択した欲求カテゴリ】\n${ST.selectedDesires.join('、')}`;
+  const el=document.createElement('div');
+  const rawText=await ai(sys,usr,null);
+  document.getElementById('btn2a').disabled=false;
+
+  // JSONパース
+  try{
+    const match=rawText.match(/\[[\s\S]*\]/);
+    if(!match)throw new Error('no json');
+    ST.svcList=JSON.parse(match[0]);
+  }catch(e){
+    // フォールバック：テキストをカードとして表示
+    ST.svcList=[{title:'提案結果',tag:'',target:'',summary:rawText,why:''}];
+  }
+
+  // カード表示
+  const container=document.getElementById('svc-cards');
+  container.innerHTML='';
+  ST.svcList.forEach((s,i)=>{
+    const card=document.createElement('div');
+    card.className='svc-card';
+    card.innerHTML=`${s.tag?`<div class="svc-card-tag" style="background:var(--acc-l);color:var(--acc);">${s.tag}</div>`:''}
+<div class="svc-card-title">${s.title}</div>
+<div class="svc-card-desc"><strong>ターゲット：</strong>${s.target}<br>${s.summary}<br><span style="color:var(--grn);font-size:12px;">✓ ${s.why}</span></div>`;
+    card.onclick=()=>selectSvc(i,card);
+    container.appendChild(card);
+  });
+  document.getElementById('r2a').style.display='block';
+}
+
+// ===== STEP2 サービス選択→チャット設計 =====
+async function selectSvc(i,el){
+  document.querySelectorAll('.svc-card').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+  ST.selectedSvc=ST.svcList[i].title+' — '+ST.svcList[i].summary;
+
+  // チャット初期化
+  chat2History=[];
+  document.getElementById('chat2-msgs').innerHTML='';
+  document.getElementById('r2b').style.display='block';
+
+  // 最初のAI提案
+  const sys=`あなたはビジネスコーチです。選択されたサービスについて、3ヶ月継続サポートの具体的な内容を提案してください。
+
+【固定フレーム（必ず含める）】
+・期間：3ヶ月
+・LINEで相談無制限
+・Zoomサポート月2回（1回60分）
+
+【提案すべき内容】
+・毎月の流れ（1ヶ月目：○○、2ヶ月目：○○、3ヶ月目：○○）
+・Zoom各回のテーマ（2回×3ヶ月＝6回分の概要）
+・LINEサポートで対応する内容の範囲
+・受講後に得られる変化・成果
+・価格の目安（相場感を含めて）
+
+【スタイル】提案形式で、相手が修正・追加しやすいように「いかがでしょうか？」と締める。`;
+  const usr=`【選択したサービス】\n${ST.svcList[i].title}\n\n【サービス概要】\n${ST.svcList[i].summary}\n\n【ターゲット】\n${ST.svcList[i].target}\n\n【強み（参考）】\n${ST.str}`;
+  chat2History.push({role:'user',content:usr});
+  document.getElementById('chat2-send').disabled=true;
+  const res=await aiChat(sys,chat2History,{id:'chat2-input'});
+  chat2History.push({role:'assistant',content:res});
+  document.getElementById('chat2-send').disabled=false;
+}
+
+async function chat2Send(){
+  const input=document.getElementById('chat2-input');
+  const text=input.value.trim();
+  if(!text)return;
+  addMsg('chat2-msgs',text,'user');
+  input.value='';
+  chat2History.push({role:'user',content:text});
+  document.getElementById('chat2-send').disabled=true;
+  const sys=`あなたはビジネスコーチです。ユーザーがサービス内容を確定するためのやり取りをしています。
+修正・追加・質問に丁寧に対応して、最終的にサービス内容が固まるようにサポートしてください。
+内容が固まったら「では、このサービス内容で確定しましょう！」と伝えてください。`;
+  const res=await aiChat(sys,chat2History,{id:'chat2-input'});
+  chat2History.push({role:'assistant',content:res});
+  document.getElementById('chat2-send').disabled=false;
+}
+
+function confirmService(){
+  // チャット履歴から最後のAIメッセージをサービス詳細として保存
+  const lastAI=chat2History.filter(m=>m.role==='assistant').pop();
+  ST.svcDetail=lastAI?lastAI.content:ST.selectedSvc;
+  document.getElementById('r2-confirmed').style.display='block';
+  done.add(1);
+}
+
+// ===== STEP3a 視聴ポイント提案 =====
+async function s3a(){
+  if(!ST.svcDetail){alert('先にSTEP2でサービスを確定してください。');return;}
+  document.getElementById('btn3a').disabled=true;
+  const sys=`あなたは動画マーケティングの専門家です。集客用無料動画（45分）で視聴者に感じてほしいポイントを5つ提案してください。
+
+【出力形式】番号なしで1行ずつ、5項目のみ出力（余計な説明不要）：
+・〇〇〇〇〇
+・〇〇〇〇〇
+（以下5項目）
+
+【条件】視聴後に「この人に相談したい」「LINE登録しよう」と思わせる内容。感情・行動・気づきの観点から多様に。`;
+  const usr=`【サービス詳細】\n${ST.svcDetail}`;
+  const rawText=await ai(sys,usr,null);
+  document.getElementById('btn3a').disabled=false;
+
+  // パース
+  const lines=rawText.split('\n').map(l=>l.replace(/^[・•\-\d\.]+\s*/,'').trim()).filter(l=>l.length>5).slice(0,5);
+  ST.priorities=lines;
+
+  // リスト表示
+  const list=document.getElementById('priority-list');
+  list.innerHTML='';
+  let selectedOrder=[];
+  lines.forEach((text,i)=>{
+    const li=document.createElement('li');
+    li.className='priority-item';
+    li.dataset.text=text;
+    li.innerHTML=`<div class="priority-num">${i+1}</div><div class="priority-text">${text}</div><span class="priority-check" onclick="togglePriority(this.parentElement,'${text.replace(/'/g,"\\'")}')">☐</span>`;
+    list.appendChild(li);
+  });
+  document.getElementById('r3a').style.display='block';
+}
+
+function togglePriority(el,text){
+  const isSelected=el.classList.contains('selected-p');
+  const selectedItems=document.querySelectorAll('.priority-item.selected-p');
+  if(isSelected){
+    el.classList.remove('selected-p');
+    el.querySelector('.priority-check').textContent='☐';
+  }else{
+    el.classList.add('selected-p');
+    el.querySelector('.priority-check').textContent='✓';
+  }
+  // 番号を選択順に振り直す
+  let n=1;
+  document.querySelectorAll('.priority-item').forEach(item=>{
+    if(item.classList.contains('selected-p')){item.querySelector('.priority-num').textContent=n++;}
+    else{item.querySelector('.priority-num').textContent='';}
+  });
+}
+
+// ===== STEP3b 台本生成 =====
+async function s3b(){
+  if(!ST.svcDetail){alert('先にSTEP2でサービスを確定してください。');return;}
+  document.getElementById('btn3b').disabled=true;
+  const selected=[...document.querySelectorAll('.priority-item.selected-p')].map(el=>el.dataset.text);
+  const allPriorities=selected.length>0?selected:ST.priorities;
+
+  const sys=`あなたは動画マーケティングの専門家です。集客用無料動画（45分）の台本とスライド構成を作成してください。
+
+【出力形式】必ずこの形式で出力してください：
+---台本---
+（動画全体の話す内容を時間配分付きで出力。45分構成で）
+
+---スライド構成---
+スライド1｜タイトル｜サブタイトル
+スライド2｜見出し｜本文1行目／本文2行目
+（以下同様に12〜15枚分）
+
+【構成】①つかみ・共感（5分）②自己紹介（5分）③問題提起（10分）④解決策の提示（15分）⑤実例・体験談（5分）⑥次のステップ・LINE誘導（5分）
+【視聴者に感じてほしいポイント（優先度順）】\n${allPriorities.map((p,i)=>`${i+1}. ${p}`).join('\n')}`;
+  const usr=`【サービス詳細】\n${ST.svcDetail}`;
+  document.getElementById('r3b').style.display='block';
+  const res=await ai(sys,usr,document.getElementById('o3b'));
+  ST.scriptText=res;
+  parseSlides(res);
+  document.getElementById('btn3b').disabled=false;
+  if(ST.slides.length>0)document.getElementById('btn3p').style.display='block';
+  done.add(2);
+}
+
+function parseSlides(text){
+  ST.slides=[];const lines=text.split('\n');let inS=false;
+  for(const l of lines){
+    if(l.includes('---スライド構成---')){inS=true;continue;}
+    if(l.includes('---')&&inS)break;
+    if(!inS)continue;
+    const m=l.match(/スライド\d+[｜|](.+)/);
+    if(m){const p=m[1].split(/[｜|\/／]/);ST.slides.push({t:p[0]?.trim()||'',b:p.slice(1).join('\n').trim()});}
+  }
+}
+
+// ===== PPTX =====
+async function dlPptx(){
+  if(!ST.slides.length){alert('スライドデータがありません。');return;}
+  const btn=document.getElementById('btn3p');btn.textContent='⏳ 生成中...';btn.disabled=true;
+  try{
+    const pres=new PptxGenJS();pres.layout='LAYOUT_16x9';
+    const BG='1E2761',AC='F5A623',WH='FFFFFF',LT='EEF2FF';
+    for(let i=0;i<ST.slides.length;i++){
+      const sd=ST.slides[i];const slide=pres.addSlide();
+      if(i===0){
+        slide.addShape(pres.ShapeType.rect,{x:0,y:0,w:10,h:5.625,fill:{color:BG}});
+        slide.addShape(pres.ShapeType.rect,{x:0,y:4.2,w:10,h:1.425,fill:{color:AC}});
+        slide.addText(sd.t,{x:0.6,y:1.0,w:8.8,h:2.5,fontSize:34,bold:true,color:WH,fontFace:'Calibri',align:'center',valign:'middle'});
+        if(sd.b)slide.addText(sd.b,{x:0.6,y:3.3,w:8.8,h:0.7,fontSize:18,color:AC,fontFace:'Calibri',align:'center'});
+        slide.addText('AI収入ロードマップ',{x:0.6,y:4.5,w:8.8,h:0.5,fontSize:13,color:BG,fontFace:'Calibri',align:'center',bold:true});
+      }else{
+        slide.addShape(pres.ShapeType.rect,{x:0,y:0,w:10,h:1.0,fill:{color:BG}});
+        slide.addShape(pres.ShapeType.rect,{x:0,y:1.0,w:10,h:4.3,fill:{color:LT}});
+        slide.addShape(pres.ShapeType.rect,{x:0,y:5.3,w:10,h:0.325,fill:{color:AC}});
+        slide.addText(sd.t,{x:0.4,y:0.1,w:9.2,h:0.85,fontSize:21,bold:true,color:WH,fontFace:'Calibri',valign:'middle'});
+        if(sd.b){
+          const items=sd.b.split('\n').filter(l=>l.trim()).map(l=>({text:'・'+l,options:{breakLine:true,fontSize:15,color:'2A2825',fontFace:'Calibri'}}));
+          slide.addText(items,{x:0.6,y:1.15,w:8.8,h:3.8,valign:'top'});
+        }
+        slide.addText(`${i+1} / ${ST.slides.length}`,{x:8.5,y:5.3,w:1.2,h:0.325,fontSize:10,color:BG,fontFace:'Calibri',align:'right',valign:'middle'});
+      }
+    }
+    await pres.writeFile({fileName:'集客動画スライド.pptx'});
+    btn.textContent='✅ ダウンロード完了';btn.disabled=false;
+  }catch(e){btn.textContent='⚠️ エラー - もう一度';btn.disabled=false;}
+}
+
+// ===== STEP5 個別相談 =====
+async function s5(){
+  if(!ST.svcDetail){alert('先にSTEP2でサービスを確定してください。');return;}
+  document.getElementById('btn5').disabled=true;
+  const sys=`あなたはビジネスコーチです。Zoom60分の無料個別相談の流れとクロージングまでのシナリオを作成してください。
+【ルール】
+構成：①開始・アイスブレイク（5分）→②現状ヒアリング（15分）→③問題の言語化（10分）→④解決策の提示（15分）→⑤サービス説明・クロージング（10分）→⑥フォローアップ・次のステップ（5分）
+各フェーズに「話すべきこと」「避けるべきこと」「使えるフレーズ例」を含める。売り込み感ゼロで「お願いしたい」と感じさせる設計。1200〜1500文字。`;
+  const usr=`【サービス詳細】\n${ST.svcDetail}`;
+  document.getElementById('r5').style.display='block';
+  await ai(sys,usr,document.getElementById('o5'));
+  document.getElementById('btn5').disabled=false;done.add(4);
+}
+
+// ===== STEP6a プロフィール =====
+async function s6a(){
+  if(!ST.svcDetail){alert('先にSTEP2でサービスを確定してください。');return;}
+  document.getElementById('btn6a').disabled=true;
+  chat6History=[];
+  document.getElementById('chat6-msgs').innerHTML='';
+
+  const sys=`あなたはSNSマーケティングの専門家です。Threadsプロフィールのたたき台を提案してください。
+
+【Threadsプロフィールの構成】
+①名前の見せ方（本名 or ニックネーム + 肩書き）
+②自己紹介文（150字以内）：誰の、何の悩みを解決するか＋実績や経験1つ＋読んだ人が取るべき行動
+③固定投稿の方向性（プロフに来た人に最初に見せるべき投稿のテーマ）
+
+【スタイル】読んだターゲットが「この人だ！」と感じる言葉を選ぶ。型にはまった自己紹介にしない。「いかがでしょうか？」と締めて修正を促す。`;
+  const usr=`【サービス詳細】\n${ST.svcDetail}\n\n【強み】\n${ST.str}`;
+  chat6History.push({role:'user',content:usr});
+  document.getElementById('chat6-send').disabled=true;
+  document.getElementById('r6a').style.display='block';
+  const res=await aiChat(sys,chat6History,{id:'chat6-input'});
+  chat6History.push({role:'assistant',content:res});
+  document.getElementById('chat6-send').disabled=false;
+  document.getElementById('btn6a').disabled=false;
+}
+
+async function chat6Send(){
+  const input=document.getElementById('chat6-input');
+  const text=input.value.trim();
+  if(!text)return;
+  addMsg('chat6-msgs',text,'user');
+  input.value='';
+  chat6History.push({role:'user',content:text});
+  document.getElementById('chat6-send').disabled=true;
+  const sys=`あなたはSNSマーケティングの専門家です。ユーザーがThreadsプロフィールを完成させるためのやり取りをしています。
+修正・追加・質問に対応して、最終的に「これで行きます！」と言えるプロフィールに仕上げてください。
+内容が固まったら「では、このプロフィールで確定しましょう！」と伝えてください。`;
+  const res=await aiChat(sys,chat6History,{id:'chat6-input'});
+  chat6History.push({role:'assistant',content:res});
+  document.getElementById('chat6-send').disabled=false;
+}
+
+function confirmProfile(){
+  const lastAI=chat6History.filter(m=>m.role==='assistant').pop();
+  ST.profile=lastAI?lastAI.content:'';
+  document.getElementById('r6-confirmed').style.display='block';
+  done.add(5);
+}
+
+// ===== STEP6b 投稿作成 =====
+async function s6b(){
+  if(!ST.svcDetail){alert('先にSTEP2でサービスを確定してください。');return;}
+  document.getElementById('btn6b').disabled=true;
+  const pt=document.getElementById('pt').value.trim();
+  const sys=`あなたはSNSマーケティングの専門家です。Threads投稿を3本作成してください。
+【設計】1投稿200〜350文字。ハッシュタグ1〜3個。
+投稿①：ターゲットの悩みに共感・代弁する投稿
+投稿②：「知らないと損」系のノウハウ投稿
+投稿③：経験談・失敗談から学びを伝える投稿
+売り込み感ゼロ。「この人信頼できそう」と感じる内容。投稿間は「---」で区切る。`;
+  const usr=`【サービス・強み】\n${ST.svcDetail}\n${ST.profile?`\n【プロフィール】\n${ST.profile}`:''}\n${pt?`\n【今日のテーマ】\n${pt}`:''}`;
+  document.getElementById('r6b').style.display='block';
+  await ai(sys,usr,document.getElementById('o6b'));
+  document.getElementById('btn6b').disabled=false;done.add(5);
+}
+
+// ===== ルーティン：返信投稿 =====
+async function sReply(){
+  const post=document.getElementById('target-post').value.trim();
+  if(!post){alert('ターゲットの投稿を貼り付けてください。');return;}
+  document.getElementById('btn-reply').disabled=true;
+  const sys=`あなたはSNSマーケティングの専門家です。ターゲット層の投稿に対して「返信投稿」を1本作成してください。
+
+【目的】この投稿を見ている人（同じ悩みを持つ人）に届く投稿を作る。直接その人に返信するのではなく、「自分のアカウントへの投稿として」書く。
+
+【ルール】
+・200〜300文字
+・「あ、わかる」「この人のことを言ってるみたい」と感じさせる共感から入る
+・自分の経験や視点を添える
+・最後は「こんな時はこうしてみて」的な一歩手前のヒントで締める（売り込みなし）
+・ハッシュタグ1〜2個`;
+  const usr=`【ターゲットの投稿】\n${post}\n\n【自分のサービス・強み（参考）】\n${ST.svcDetail||'（未設定）'}`;
+  document.getElementById('r-reply').style.display='block';
+  await ai(sys,usr,document.getElementById('o-reply'));
+  document.getElementById('btn-reply').disabled=false;
+}
+
+// ===== コピー =====
+function cp(id){
+  const t=document.getElementById(id).textContent;
+  navigator.clipboard.writeText(t).then(()=>alert('コピーしました！')).catch(()=>{
+    const r=document.createRange();r.selectNode(document.getElementById(id));
+    window.getSelection().removeAllRanges();window.getSelection().addRange(r);
+  });
+}
+</script>
+</body>
+</html>
